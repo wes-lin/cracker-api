@@ -14,6 +14,6 @@ import java.util.List;
 @Repository
 public interface WordBookRepository extends AbstractRepository<WordBookEntity> {
 
-    List<WordBookEntity> findByBookTypeAndCustomerId(BookTypeEnum bookType,String customerId);
+    List<WordBookEntity> findByBookTypeAndCustomerId(BookTypeEnum bookType, String customerId);
 
 }

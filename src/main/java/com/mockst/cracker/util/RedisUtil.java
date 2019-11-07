@@ -18,22 +18,22 @@ public class RedisUtil {
         this.redisTemplate = redisTemplate;
     }
 
-    public void set(String key,Object value){
-        ValueOperations<String,Object> vo = redisTemplate.opsForValue();
+    public void set(String key, Object value) {
+        ValueOperations<String, Object> vo = redisTemplate.opsForValue();
         vo.set(key, value);
     }
 
-    public void set(String key,Object value,long s){
-        ValueOperations<String,Object> vo = redisTemplate.opsForValue();
-        vo.set(key, value,s, TimeUnit.SECONDS);
+    public void set(String key, Object value, long s) {
+        ValueOperations<String, Object> vo = redisTemplate.opsForValue();
+        vo.set(key, value, s, TimeUnit.SECONDS);
     }
 
     public Object get(String key) {
-        ValueOperations<String,Object> vo = redisTemplate.opsForValue();
+        ValueOperations<String, Object> vo = redisTemplate.opsForValue();
         return vo.get(key);
     }
 
-    public boolean del(String key){
+    public boolean del(String key) {
         return redisTemplate.delete(key);
     }
 

@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @Description:响应结果
  * @date 2019/4/8 16:14
  */
-public class APIResult implements Serializable{
+public class APIResult implements Serializable {
 
     private String code;
     private String message;

@@ -26,34 +26,36 @@ public abstract class AbstractController {
     @Autowired
     private CustomerService customerService;
 
-    protected String getTokenKey(String token){
-        return RedisKeyConstants.getRedisKey(RedisKeyConstants.USER_SESSION_KEY,token);
+    protected String getTokenKey(String token) {
+        return RedisKeyConstants.getRedisKey(RedisKeyConstants.USER_SESSION_KEY, token);
     }
 
     /**
      * 设置用户缓存
+     *
      * @param token
      * @param userEntity
      */
-    protected void setCurrentUser(String token, CustomerEntity userEntity){
-        if (userEntity == null){
-            LOGGER.warn( " ->> 当前userEntity为空 <<- ");
+    protected void setCurrentUser(String token, CustomerEntity userEntity) {
+        if (userEntity == null) {
+            LOGGER.warn(" ->> 当前userEntity为空 <<- ");
             return;
         }
         String key = getTokenKey(token);
-        redisUtil.set(key,userEntity.getId());
+        redisUtil.set(key, userEntity.getId());
     }
 
     /**
      * 获取缓存的用户
+     *
      * @param request
      * @return
      */
-    protected CustomerEntity getCurrentUser(HttpServletRequest request){
+    protected CustomerEntity getCurrentUser(HttpServletRequest request) {
         String token = request.getParameter("token");
         String key = getTokenKey(token);
         String userId = (String) redisUtil.get(key);
-        if (userId == null){
+        if (userId == null) {
             LOGGER.warn(" ->> 当前userId不存在 <<- ");
             return null;
         }
@@ -63,9 +65,10 @@ public abstract class AbstractController {
 
     /**
      * 清除缓存的用户
+     *
      * @param request
      */
-    protected void delCurrentUser(HttpServletRequest request){
+    protected void delCurrentUser(HttpServletRequest request) {
         String token = request.getParameter("token");
         String key = getTokenKey(token);
         redisUtil.del(key);

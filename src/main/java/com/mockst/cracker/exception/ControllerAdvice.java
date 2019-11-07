@@ -30,40 +30,40 @@ public class ControllerAdvice {
     private static final Logger LOGGER = LoggerFactory.getLogger(ControllerAdvice.class);
 
     @ExceptionHandler
-    public APIResult handlerException(HttpServletRequest request, Exception e){
-        Map<String,Object> paramsMap = RequestUtil.getParamterMap(request);
-        LOGGER.info("请求url:{}",request.getRequestURI());
-        LOGGER.error("请求参数:{},异常详情:{}",paramsMap.toString(), ExceptionUtils.getStackTrace(e));
-        return APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PROCESSING_FAILED,"系统异常");
+    public APIResult handlerException(HttpServletRequest request, Exception e) {
+        Map<String, Object> paramsMap = RequestUtil.getParamterMap(request);
+        LOGGER.info("请求url:{}", request.getRequestURI());
+        LOGGER.error("请求参数:{},异常详情:{}", paramsMap.toString(), ExceptionUtils.getStackTrace(e));
+        return APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PROCESSING_FAILED, "系统异常");
     }
 
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
-    public APIResult requestParameterHandler(HttpServletRequest request,MissingServletRequestParameterException e){
-        Map<String,Object> paramsMap = RequestUtil.getParamterMap(request);
-        LOGGER.info("请求url:{}",request.getRequestURI());
-        LOGGER.error("请求参数:{},异常详情:{}",paramsMap.toString(), ExceptionUtils.getStackTrace(e));
-        LOGGER.error("缺少参数：{} 类型：{}",e.getParameterName(),e.getParameterType());
+    public APIResult requestParameterHandler(HttpServletRequest request, MissingServletRequestParameterException e) {
+        Map<String, Object> paramsMap = RequestUtil.getParamterMap(request);
+        LOGGER.info("请求url:{}", request.getRequestURI());
+        LOGGER.error("请求参数:{},异常详情:{}", paramsMap.toString(), ExceptionUtils.getStackTrace(e));
+        LOGGER.error("缺少参数：{} 类型：{}", e.getParameterName(), e.getParameterType());
         String code = APIConstant.MISSING_REQUIRED_PARAMETER;
-        String message = "缺少必要参数"+e.getParameterName();
-        return APIResultUtil.responseBusinessFailedResult(code,message);
+        String message = "缺少必要参数" + e.getParameterName();
+        return APIResultUtil.responseBusinessFailedResult(code, message);
     }
 
     @ExceptionHandler
-    public APIResult validationExceptionHandler(ConstraintViolationException exception){
+    public APIResult validationExceptionHandler(ConstraintViolationException exception) {
         Set<ConstraintViolation<?>> violations = exception.getConstraintViolations();
         List<String> errors = new ArrayList<>();
-        for (ConstraintViolation s:violations){
+        for (ConstraintViolation s : violations) {
             errors.add(s.getMessage());
         }
-        return APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,errors.get(0));
+        return APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, errors.get(0));
     }
 
     @ExceptionHandler(value = BusinessException.class)
-    public APIResult businessExceptionHandler(HttpServletRequest request,BusinessException e){
-        Map<String,Object> paramsMap = RequestUtil.getParamterMap(request);
-        LOGGER.info("请求url:{}",request.getRequestURI());
-        LOGGER.error("请求参数:{},异常详情:{}",paramsMap.toString(),ExceptionUtils.getStackTrace(e));
-        String code = e.getCode()==null?APIConstant.BUSINESS_PROCESSING_FAILED:e.getCode();
+    public APIResult businessExceptionHandler(HttpServletRequest request, BusinessException e) {
+        Map<String, Object> paramsMap = RequestUtil.getParamterMap(request);
+        LOGGER.info("请求url:{}", request.getRequestURI());
+        LOGGER.error("请求参数:{},异常详情:{}", paramsMap.toString(), ExceptionUtils.getStackTrace(e));
+        String code = e.getCode() == null ? APIConstant.BUSINESS_PROCESSING_FAILED : e.getCode();
         return APIResultUtil.responseBusinessFailedResult(code, e.getMessage());
     }
 }

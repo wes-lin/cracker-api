@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tb_verification_code")
-@org.hibernate.annotations.Table(appliesTo = "tb_verification_code",comment = "验证码")
+@org.hibernate.annotations.Table(appliesTo = "tb_verification_code", comment = "验证码")
 public class VerificationCodeEntity extends AbstractEntity {
 
     /**

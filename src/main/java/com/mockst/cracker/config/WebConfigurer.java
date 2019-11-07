@@ -55,10 +55,11 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
 
     /**
      * 解决跨域
+     *
      * @return
      */
     @Bean
-    public FilterRegistrationBean corsFilter(){
+    public FilterRegistrationBean corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
@@ -78,6 +79,7 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
 
     /**
      * 拦截器注入
+     *
      * @param registry
      */
     @Override
@@ -85,8 +87,8 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
         registry.addInterceptor(threadContextMDCInterceptor)
                 .addPathPatterns("/**");
         registry.addInterceptor(apiInterceptor)
-                .addPathPatterns(API_BASE_PATH+"/**")
-                .addPathPatterns(APP_BASE_PATH+"/**");
+                .addPathPatterns(API_BASE_PATH + "/**")
+                .addPathPatterns(APP_BASE_PATH + "/**");
 //        registry.addInterceptor(appLoginInterceptor)
 //                .addPathPatterns(APP_BASE_PATH+"/**");
         super.addInterceptors(registry);

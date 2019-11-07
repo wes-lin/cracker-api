@@ -2,6 +2,8 @@ package com.mockst.cracker.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @Auther: zhiwei
  * @Date: 2019/10/30 21:47
@@ -16,10 +18,9 @@ public class WordInfo {
     private String UKVoice;
     private String USVoice;
     private Integer level;
-    //释义1
-    private String explanation1;
-    //释义2
-    private String explanation2;
+    private String phonetic;
+    //释义
+    private List<String> explanations;
     //结果
     private String resultId;
 }

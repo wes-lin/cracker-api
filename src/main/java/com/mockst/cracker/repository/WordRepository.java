@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WordRepository extends AbstractRepository<WordEntity> {
 
-    long countByBookTypeAndSceneId(BookTypeEnum bookType,String sceneId);
+    long countByBookTypeAndSceneId(BookTypeEnum bookType, String sceneId);
 
-
+    WordEntity findByKeyword(String keyword);
 }

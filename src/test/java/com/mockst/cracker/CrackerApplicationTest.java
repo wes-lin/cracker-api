@@ -41,13 +41,14 @@ public class CrackerApplicationTest {
 
     @Autowired
     private RedisUtil redisUtil;
+
     @Test
-    public void test(){
-        customerService.register("18965835716","123456");
+    public void test() {
+        customerService.register("18965835716", "123456");
     }
 
     @Test
-    public void customerWordTest(){
+    public void customerWordTest() {
         String customerId = "402878816e178a66016e178a73ba0000";
         List<WordBook> list = customerService.findCustomerBooks(customerId, BookTypeEnum.v);
         System.out.println(JSON.toJSONString(list));
@@ -59,12 +60,13 @@ public class CrackerApplicationTest {
 
     @Autowired
     private WordService wordService;
+
     @Test
-    public void wordTest(){
+    public void wordTest() {
         String keyword = "test";
         for (int i = 0; i < 100; i++) {
             WordInfo wordInfo = wordService.findByKeyWord(keyword);
-            System.out.println("i:"+i+JSON.toJSONString(wordInfo));
+            System.out.println("i:" + i + JSON.toJSONString(wordInfo));
         }
 
     }
@@ -73,34 +75,39 @@ public class CrackerApplicationTest {
     private StudyRoundService roundService;
 
     @Test
-    public void roundTest(){
+    public void roundTest() {
         String customerId = "402878816e178a66016e178a73ba0000";
         String bookId = "402878816e178a66016e178a74620001";
         //创建轮次
-        StudyRoundEntity roundEntity = roundService.createRound(bookId,customerId);
-        if (roundEntity!=null){
-            while(true){
+        StudyRoundEntity roundEntity = roundService.createRound(bookId, customerId);
+        if (roundEntity != null) {
+            while (true) {
                 WordInfo wordInfo = roundService.createWord(roundEntity.getId());
-                if (wordInfo!=null){
+                if (wordInfo != null) {
                     //获取新单词
                     System.out.println("获取新单词");
-                    String explanation = wordInfo.getExplanation1();
-                    SubmitResultInfo resultInfo = roundService.submitWord(wordInfo.getResultId(),explanation);
-                    System.out.println("keyword:"+wordInfo.getKeyword());
-                    System.out.println("isRight:"+resultInfo.isRight());
-                    System.out.println("isHaveNext:"+resultInfo.isHaveNext());
-                    if(!resultInfo.isHaveNext()){
+                    String explanation = wordInfo.getExplanations().get(0);
+                    SubmitResultInfo resultInfo = roundService.submitWord(wordInfo.getResultId(), explanation);
+                    System.out.println("keyword:" + wordInfo.getKeyword());
+                    System.out.println("isRight:" + resultInfo.isRight());
+                    System.out.println("isHaveNext:" + resultInfo.isHaveNext());
+                    if (!resultInfo.isHaveNext()) {
                         break;
                     }
-                }else {
+                } else {
                     break;
                 }
             }
             RoundResultInfo resultInfo = roundService.stopRound(roundEntity.getId());
-            System.out.println("resultInfo:"+JSON.toJSONString(resultInfo));
+            System.out.println("resultInfo:" + JSON.toJSONString(resultInfo));
             System.out.println("完成");
         }
+    }
 
+    @Test
+    public void importTest() throws Exception {
+        String file = "D:\\test\\雅思单词.xlsx";
+        wordService.importWord(file);
     }
 
 }

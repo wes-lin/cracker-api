@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public abstract class RequestUtil {
 
-    public static void returnJson(HttpServletResponse response, Object result) throws Exception{
+    public static void returnJson(HttpServletResponse response, Object result) throws Exception {
         String json = JSONObject.toJSONString(result);
         PrintWriter writer = null;
         response.setCharacterEncoding("UTF-8");
@@ -41,7 +41,7 @@ public abstract class RequestUtil {
                 params.put(entry.getKey(), entry.getValue()[0]);
             } else if (len > 1) {
                 String[] vs = new String[entry.getValue().length];
-                for (int i=0;i<vs.length;i++){
+                for (int i = 0; i < vs.length; i++) {
                     vs[i] = entry.getValue()[i];
                 }
                 params.put(entry.getKey(), vs);
@@ -50,10 +50,10 @@ public abstract class RequestUtil {
         return params;
     }
 
-    public static String getEncoderValue(String v){
-        String r ;
+    public static String getEncoderValue(String v) {
+        String r;
         try {
-            r = URLEncoder.encode(v,"utf-8");
+            r = URLEncoder.encode(v, "utf-8");
         } catch (UnsupportedEncodingException e) {
             r = v;
         }
@@ -92,22 +92,22 @@ public abstract class RequestUtil {
         return scheme;
     }
 
-    public static String postFormData(String orderPushPath, Map<String,String> stringStringMap) {
+    public static String postFormData(String orderPushPath, Map<String, String> stringStringMap) {
         return postData(orderPushPath, stringStringMap, "application/x-www-form-urlencoded", "POST");
     }
 
-    private static String postData(String httpUrl, Map<String,String> paramsMap,String contentType,String method) {
+    private static String postData(String httpUrl, Map<String, String> paramsMap, String contentType, String method) {
         try {
             URL url = new URL(httpUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            if (method == null || "".equals(method)){
+            if (method == null || "".equals(method)) {
                 conn.setRequestMethod("POST");
-            }else{
+            } else {
                 conn.setRequestMethod(method);
             }
 
 
-            if (contentType == null || "".equals(contentType)){
+            if (contentType == null || "".equals(contentType)) {
                 contentType = "application/x-www-form-urlencoded";
             }
             /**
@@ -123,17 +123,17 @@ public abstract class RequestUtil {
             OutputStream out = conn.getOutputStream();
             StringBuffer paramsSb = new StringBuffer();
             String paramsStr = "";
-            if ("application/json".equals(contentType)){
+            if ("application/json".equals(contentType)) {
                 JSONObject json = (JSONObject) JSONObject.toJSON(paramsMap);
                 paramsStr = json.toJSONString();
-            }else{
-                for(Map.Entry<String, String> entry:paramsMap.entrySet()){
+            } else {
+                for (Map.Entry<String, String> entry : paramsMap.entrySet()) {
                     paramsSb.append(entry.getKey() + "=" + entry.getValue().toString());
                     paramsSb.append("&");
                 }
-                paramsStr = paramsSb.toString().substring(0,paramsSb.toString().length()-1);
+                paramsStr = paramsSb.toString().substring(0, paramsSb.toString().length() - 1);
             }
-            System.out.println("请求参数:"+paramsStr);
+            System.out.println("请求参数:" + paramsStr);
             out.write(paramsStr.getBytes());
 
             out.flush();

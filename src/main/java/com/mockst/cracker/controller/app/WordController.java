@@ -20,7 +20,7 @@ import java.util.Optional;
  * @Description:
  */
 @RestController
-@RequestMapping(WebConfigurer.APP_BASE_PATH+"/word")
+@RequestMapping(WebConfigurer.APP_BASE_PATH + "/word")
 public class WordController extends AbstractController {
 
     @Autowired
@@ -30,11 +30,12 @@ public class WordController extends AbstractController {
 
     /**
      * 创建一轮次
+     *
      * @return
      */
     @RequestMapping("createRound")
-    public APIResult createRound(@RequestParam String customerId,@RequestParam String bookId){
-        StudyRoundEntity studyRoundEntity = studyRoundService.createRound(bookId,customerId);
+    public APIResult createRound(@RequestParam String customerId, @RequestParam String bookId) {
+        StudyRoundEntity studyRoundEntity = studyRoundService.createRound(bookId, customerId);
         JSONObject data = new JSONObject();
         data.put("roundId", Optional.ofNullable(studyRoundEntity).orElse(new StudyRoundEntity()).getId());
         return APIResultUtil.returnSuccessResult(data);
@@ -42,29 +43,32 @@ public class WordController extends AbstractController {
 
     /**
      * 创建一轮次
+     *
      * @return
      */
     @RequestMapping("createWord")
-    public APIResult createWord(@RequestParam String roundId){
+    public APIResult createWord(@RequestParam String roundId) {
         return APIResultUtil.returnSuccessResult(studyRoundService.createWord(roundId));
     }
 
     /**
      * 提交答案
+     *
      * @return
      */
     @RequestMapping("submitWord")
     public APIResult submitWord(@RequestParam String resultId,
-                                @RequestParam String explanation){
-        return APIResultUtil.returnSuccessResult(studyRoundService.submitWord(resultId,explanation));
+                                @RequestParam String explanation) {
+        return APIResultUtil.returnSuccessResult(studyRoundService.submitWord(resultId, explanation));
     }
 
     /**
      * 获取结果
+     *
      * @return
      */
     @RequestMapping("stopRound")
-    public APIResult stopRound(@RequestParam String roundId){
+    public APIResult stopRound(@RequestParam String roundId) {
         return APIResultUtil.returnSuccessResult(studyRoundService.stopRound(roundId));
     }
 

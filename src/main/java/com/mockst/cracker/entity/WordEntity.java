@@ -12,20 +12,17 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "tb_word",uniqueConstraints={@UniqueConstraint(columnNames={"keyword"},name = "keyword")})
-@org.hibernate.annotations.Table(appliesTo = "tb_word",comment = "单词表")
+@Table(name = "tb_word", uniqueConstraints = {@UniqueConstraint(columnNames = {"keyword"}, name = "keyword")})
+@org.hibernate.annotations.Table(appliesTo = "tb_word", comment = "单词表")
 public class WordEntity extends AbstractEntity {
 
     @Column(columnDefinition = "varchar(100) default '' comment '单词内容'")
     private String keyword;
 
-    @Column(columnDefinition = "varchar(100) default '' comment '音标'")
-    private String phonetic;
-
-    @Column(name ="UK_voice",columnDefinition = "varchar(255) default '' comment '英式发音'")
+    @Column(name = "UK_voice", columnDefinition = "varchar(255) default '' comment '英式发音'")
     private String UKVoice;
 
-    @Column(name = "US_voice",columnDefinition = "varchar(255) default '' comment '美式发音'")
+    @Column(name = "US_voice", columnDefinition = "varchar(255) default '' comment '美式发音'")
     private String USVoice;
 
     @Column(columnDefinition = "varchar(32) default '' comment '所属场景'")

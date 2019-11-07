@@ -5,7 +5,7 @@ package com.mockst.cracker.exception;
  * @Description: 业务异常
  * @date 2019/4/8 17:17
  */
-public class BusinessException extends RuntimeException{
+public class BusinessException extends RuntimeException {
 
     private String code;
 
@@ -21,7 +21,7 @@ public class BusinessException extends RuntimeException{
         super(cause);
     }
 
-    public BusinessException(String code,String message){
+    public BusinessException(String code, String message) {
         super(message);
         this.code = code;
     }

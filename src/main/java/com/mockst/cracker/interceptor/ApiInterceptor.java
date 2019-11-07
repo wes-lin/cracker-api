@@ -33,14 +33,14 @@ public class ApiInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        if ("OPTIONS".equals(request.getMethod())){
+        if ("OPTIONS".equals(request.getMethod())) {
             return true;
         }
 
-        if ("local".equals(active)){
+        if ("local".equals(active)) {
             return true;
         }
-        if ("dev".equals(active)){
+        if ("dev".equals(active)) {
             return true;
         }
         String uri = request.getRequestURI();
@@ -57,50 +57,50 @@ public class ApiInterceptor implements HandlerInterceptor {
 
         if (StringUtils.isBlank(version)) {
             LOGGER.warn("version为空");
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"缺少版本号"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "缺少版本号"));
             return false;
         }
 
         if (StringUtils.isBlank(signType)) {
             LOGGER.warn("signType为空");
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"signType为空"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "signType为空"));
             return false;
         }
 
         if (!"md5".equalsIgnoreCase(signType)) {
             LOGGER.warn("signType不为md5 signType:{}", signType);
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"signType不为md5"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "signType不为md5"));
             return false;
         }
 
         if (StringUtils.isNotBlank(charset) && !"utf-8".equalsIgnoreCase(charset)) {
             LOGGER.warn("charset不为utf-8,chatset:{}", charset);
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"charset不为utf-8"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "charset不为utf-8"));
             return false;
         }
 
         if (StringUtils.isNotBlank(format) && !"json".equalsIgnoreCase(format)) {
             LOGGER.warn("format不为json,format:{}", format);
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"format不为json"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "format不为json"));
             return false;
         }
 
         if (StringUtils.isBlank(signTime)) {
             LOGGER.warn("signTime为空");
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"signTime为空"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "signTime为空"));
             return false;
         }
 
         if (StringUtils.isBlank(sign)) {
             LOGGER.warn("sign为空");
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"sign为空"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "sign为空"));
             return false;
         }
         try {
             DateUtils.str2Date(signTime, DateUtils.DATETIME_PATTERN_14);
         } catch (Exception e) {
             LOGGER.error("签名时间转换异常，详情:{}", ExceptionUtils.getStackTrace(e));
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"签名时间转换异常"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "签名时间转换异常"));
             return false;
         }
 
@@ -111,14 +111,14 @@ public class ApiInterceptor implements HandlerInterceptor {
 
         if (currentDateLong - signTimeLong > diff) {
             LOGGER.warn("signTime 超过5分钟，signTime:{},currentTime:{}", signTime, currentDateStr);
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"signTime 超过5分钟"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "signTime 超过5分钟"));
             return false;
         }
         //验证签名
         boolean result = ValidateUtils.verifySign(API_KEY, sign, params);
         if (!result) {
             LOGGER.warn("签名验证失败 sign:{}", sign);
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR,"签名验证失败"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.BUSINESS_PARAMETER_ERROR, "签名验证失败"));
             return false;
         }
         return true;

@@ -16,7 +16,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
     @Bean
-    public RedisTemplate<String,String> redisTemplate(LettuceConnectionFactory factory){
+    public RedisTemplate<String, String> redisTemplate(LettuceConnectionFactory factory) {
         RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new StringRedisSerializer());
@@ -25,7 +25,7 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisUtil redisUtil(RedisTemplate<String,String> redisTemplate){
+    public RedisUtil redisUtil(RedisTemplate<String, String> redisTemplate) {
         return new RedisUtil(redisTemplate);
     }
 

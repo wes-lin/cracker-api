@@ -202,18 +202,17 @@
 
 #### 响应参数
 
-|    参数名    | 是否必填 |     说明     |
-| :----------: | :------: | :----------: |
-|    bookId    |          |    词本id    |
-|   bookName   |          |   词本名称   |
-|   bookType   |          |   单词类型   |
-|   keyword    |          |     单词     |
-|   UKVoice    |          | 英式发音地址 |
-|   USVoice    |          | 美式发音地址 |
-|    level     |          |     等级     |
-| explanation1 |          |    释义1     |
-| explanation2 |          |    释义2     |
-|   resultId   |          |    结果id    |
+|   参数名    | 是否必填 | 类型  |     说明     |
+| :---------: | :------: | :---: | :----------: |
+|   bookId    |          |       |    词本id    |
+|  bookName   |          |       |   词本名称   |
+|  bookType   |          |       |   单词类型   |
+|   keyword   |          |       |     单词     |
+|   UKVoice   |          |       | 英式发音地址 |
+|   USVoice   |          |       | 美式发音地址 |
+|    level    |          |       |     等级     |
+| explanation |          | Array |   释义数组   |
+|  resultId   |          |       |    结果id    |
 
 ### 提交单词
 

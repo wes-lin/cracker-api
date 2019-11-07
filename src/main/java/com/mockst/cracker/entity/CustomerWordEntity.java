@@ -14,8 +14,8 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name = "tb_customer_word",indexes = {@Index(columnList="keyword")})
-@org.hibernate.annotations.Table(appliesTo = "tb_customer_word",comment = "用户单词")
+@Table(name = "tb_customer_word", indexes = {@Index(columnList = "keyword")})
+@org.hibernate.annotations.Table(appliesTo = "tb_customer_word", comment = "用户单词")
 public class CustomerWordEntity extends AbstractEntity {
 
     @Column(columnDefinition = "varchar(100) default '' comment '单词内容'")

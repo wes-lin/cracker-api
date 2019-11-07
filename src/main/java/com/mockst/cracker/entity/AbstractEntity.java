@@ -21,7 +21,7 @@ public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid",strategy = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
     @Column(length = 32)
     protected String id;
 

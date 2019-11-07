@@ -13,8 +13,8 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "tb_study_round_word_pool")
-@org.hibernate.annotations.Table(appliesTo = "tb_study_round_word_pool",comment = "轮次单词池")
-public class StudyRoundWordPoolEntity implements Serializable{
+@org.hibernate.annotations.Table(appliesTo = "tb_study_round_word_pool", comment = "轮次单词池")
+public class StudyRoundWordPoolEntity implements Serializable {
 
     @Id
     @Column(columnDefinition = "varchar(32) default '' comment '所属轮次'")

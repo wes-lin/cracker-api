@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
  * @Date: 2019/10/20 20:48
  * @Description:
  */
-public class PhoneValidator implements ConstraintValidator<Phone,String> {
+public class PhoneValidator implements ConstraintValidator<Phone, String> {
     @Override
     public boolean isValid(String mobile, ConstraintValidatorContext constraintValidatorContext) {
         return ValidateUtils.validateMobile(mobile);

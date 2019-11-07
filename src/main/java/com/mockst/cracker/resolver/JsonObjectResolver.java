@@ -17,7 +17,7 @@ import java.util.List;
  * @Description:json转换处理
  * @date 2019/4/17 16:54
  */
-public class JsonObjectResolver implements HandlerMethodArgumentResolver{
+public class JsonObjectResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -28,26 +28,26 @@ public class JsonObjectResolver implements HandlerMethodArgumentResolver{
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         JsonObjectParam annotation = methodParameter.getParameterAnnotation(JsonObjectParam.class);
         String parameterName = annotation.name();
-        if (StringUtils.isBlank(parameterName)){
+        if (StringUtils.isBlank(parameterName)) {
             parameterName = methodParameter.getParameterName();
         }
         Class clazz = methodParameter.getParameterType();
         String json = nativeWebRequest.getParameter(parameterName);
-        if (json==null){
+        if (json == null) {
             return null;
         }
-        if (clazz.isArray()){
-            List list = JSONObject.parseArray(json,clazz.getComponentType());
-            if (list==null){
+        if (clazz.isArray()) {
+            List list = JSONObject.parseArray(json, clazz.getComponentType());
+            if (list == null) {
                 return null;
             }
-            Object objects = Array.newInstance(clazz.getComponentType(),list.size());
-            for (int i=0;i<list.size();i++){
-                Array.set(objects,i,list.get(i));
+            Object objects = Array.newInstance(clazz.getComponentType(), list.size());
+            for (int i = 0; i < list.size(); i++) {
+                Array.set(objects, i, list.get(i));
             }
             return objects;
-        }else {
-            return JSONObject.parseObject(json,clazz);
+        } else {
+            return JSONObject.parseObject(json, clazz);
         }
     }
 

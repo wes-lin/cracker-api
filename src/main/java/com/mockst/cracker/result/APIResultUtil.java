@@ -8,22 +8,22 @@ package com.mockst.cracker.result;
 public class APIResultUtil {
 
     public static APIResult returnSuccessResult(Object data) {
-        return new APIResult(APIConstant.SUCCESS,"",data);
+        return new APIResult(APIConstant.SUCCESS, "", data);
     }
 
-    public static APIResult responseBusinessFailedResult(String message,Object data){
-        return new APIResult(APIConstant.BUSINESS_PROCESSING_FAILED,message,data);
+    public static APIResult responseBusinessFailedResult(String message, Object data) {
+        return new APIResult(APIConstant.BUSINESS_PROCESSING_FAILED, message, data);
     }
 
-    public static APIResult responseBusinessFailedResult(String code,String message,Object data){
-        return new APIResult(code,message,data);
+    public static APIResult responseBusinessFailedResult(String code, String message, Object data) {
+        return new APIResult(code, message, data);
     }
 
-    public static APIResult responseBusinessFailedResult(String code,String message){
-        return new APIResult(code,message,null);
+    public static APIResult responseBusinessFailedResult(String code, String message) {
+        return new APIResult(code, message, null);
     }
 
-    public static APIResult responseBusinessFailedResult(String message){
-        return new APIResult(APIConstant.BUSINESS_PROCESSING_FAILED,message,null);
+    public static APIResult responseBusinessFailedResult(String message) {
+        return new APIResult(APIConstant.BUSINESS_PROCESSING_FAILED, message, null);
     }
 }

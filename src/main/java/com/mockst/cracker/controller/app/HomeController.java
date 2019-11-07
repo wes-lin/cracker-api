@@ -21,14 +21,14 @@ import java.util.List;
  * @Description:
  */
 @RestController
-@RequestMapping(WebConfigurer.APP_BASE_PATH+"/home")
-public class HomeController extends AbstractController{
+@RequestMapping(WebConfigurer.APP_BASE_PATH + "/home")
+public class HomeController extends AbstractController {
 
     @Autowired
     private CustomerService customerService;
 
     @RequestMapping("bookType")
-    public APIResult bookType(){
+    public APIResult bookType() {
         BookTypeEnum[] bookTypeEnums = BookTypeEnum.values();
         List<WordBookType> wordTypes = new ArrayList<>(bookTypeEnums.length);
         for (int i = 0; i < bookTypeEnums.length; i++) {
@@ -42,8 +42,8 @@ public class HomeController extends AbstractController{
     }
 
     @RequestMapping("books")
-    public APIResult books(@RequestParam String customerId,@RequestParam String bookType){
-        List<WordBook> books = customerService.findCustomerBooks(customerId,BookTypeEnum.valueOf(bookType));
+    public APIResult books(@RequestParam String customerId, @RequestParam String bookType) {
+        List<WordBook> books = customerService.findCustomerBooks(customerId, BookTypeEnum.valueOf(bookType));
         return APIResultUtil.returnSuccessResult(books);
     }
 

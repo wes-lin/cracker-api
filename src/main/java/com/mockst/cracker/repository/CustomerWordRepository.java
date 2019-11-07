@@ -11,12 +11,12 @@ import java.util.List;
  * @Description:
  */
 @Repository
-public interface CustomerWordRepository extends AbstractRepository<CustomerWordEntity>{
+public interface CustomerWordRepository extends AbstractRepository<CustomerWordEntity> {
 
     List<CustomerWordEntity> findByBookId(String bookId);
 
-    List<CustomerWordEntity> findByKeywordAndCustomerId(String keyword,String customerId);
+    List<CustomerWordEntity> findByKeywordAndCustomerId(String keyword, String customerId);
 
-    long countByBookIdAndLevelLessThan(String bookId,int level);
+    long countByBookIdAndLevelLessThan(String bookId, int level);
 
 }

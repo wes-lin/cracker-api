@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
-   
+       
     <springProperty scope="context" name="LOG_FILE_NAME" source="spring.application.name"/>
     <!-- 从application中读取日志配置 -->
-   <springProperty scope="context" name="LOG_PATH" source="logging.path"/>
+     
+    <springProperty scope="context" name="LOG_PATH" source="logging.path"/>
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %green([%thread])  %cyan(%logger{50}) [%magenta(%line)]  - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) %green([%thread]) %cyan(%logger{50})
+                [%magenta(%line)] - %msg%n
+            </pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>
@@ -31,30 +34,30 @@
     <springProfile name="local">
         <!-- 日志输出级别 -->
         <root level="INFO">
-            <appender-ref ref="STDOUT" />
+            <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
 
     <springProfile name="dev">
         <!-- 日志输出级别 -->
         <root level="INFO">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="FILE" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 
     <springProfile name="test">
         <!-- 日志输出级别 -->
         <root level="INFO">
-            <appender-ref ref="STDOUT" />
-            <appender-ref ref="FILE" />
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 
     <springProfile name="prod">
         <!-- 日志输出级别 -->
         <root level="INFO">
-            <appender-ref ref="FILE" />
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 

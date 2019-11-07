@@ -14,8 +14,8 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "tb_study_round_result")
-@org.hibernate.annotations.Table(appliesTo = "tb_study_round_result",comment = "学习轮次结果")
-public class StudyRoundResultEntity extends AbstractEntity{
+@org.hibernate.annotations.Table(appliesTo = "tb_study_round_result", comment = "学习轮次结果")
+public class StudyRoundResultEntity extends AbstractEntity {
 
     @Column(columnDefinition = "varchar(32) default '' comment '所属轮次'")
     private String roundId;

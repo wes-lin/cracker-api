@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "tb_word_scene")
-@org.hibernate.annotations.Table(appliesTo = "tb_word_scene",comment = "单词场景")
+@org.hibernate.annotations.Table(appliesTo = "tb_word_scene", comment = "单词场景")
 public class WordSceneEntity extends AbstractEntity {
 
     @Column(columnDefinition = "varchar(100) default '' comment '场景名称'")

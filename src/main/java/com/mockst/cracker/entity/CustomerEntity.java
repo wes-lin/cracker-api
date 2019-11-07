@@ -11,9 +11,9 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "tb_customer",uniqueConstraints={@UniqueConstraint(columnNames={"phone"},name = "phone")})
-@org.hibernate.annotations.Table(appliesTo = "tb_customer",comment = "客户表")
-public class CustomerEntity extends AbstractEntity{
+@Table(name = "tb_customer", uniqueConstraints = {@UniqueConstraint(columnNames = {"phone"}, name = "phone")})
+@org.hibernate.annotations.Table(appliesTo = "tb_customer", comment = "客户表")
+public class CustomerEntity extends AbstractEntity {
 
     /**
      * 验证码类型

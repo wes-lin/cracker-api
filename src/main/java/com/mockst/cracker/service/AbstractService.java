@@ -21,23 +21,23 @@ public abstract class AbstractService<E extends AbstractEntity> {
     @Autowired
     protected JdbcTemplate jdbcTemplate;
 
-    public E save(E e){
+    public E save(E e) {
         return repository.save(e);
     }
 
-    public Optional<E> findById(String id){
+    public Optional<E> findById(String id) {
         return repository.findById(id);
     }
 
-    public void deleteById(String id){
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 
-    public List<E> findAll(Example<E> example){
+    public List<E> findAll(Example<E> example) {
         return repository.findAll(example);
     }
 
-    public long count(Example<E> example){
+    public long count(Example<E> example) {
         return repository.count(example);
     }
 

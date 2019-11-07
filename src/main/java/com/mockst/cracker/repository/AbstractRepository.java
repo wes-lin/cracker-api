@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @Date: 2019/10/19 09:49
  * @Description:
  */
-public interface AbstractRepository<E extends AbstractEntity> extends JpaRepository<E, String>,JpaSpecificationExecutor<E> {
+public interface AbstractRepository<E extends AbstractEntity> extends JpaRepository<E, String>, JpaSpecificationExecutor<E> {
 }

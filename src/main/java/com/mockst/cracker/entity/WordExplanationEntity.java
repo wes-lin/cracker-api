@@ -12,8 +12,8 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "tb_word_explanation",indexes = {@Index(columnList="keyword")})
-@org.hibernate.annotations.Table(appliesTo = "tb_word_explanation",comment = "单词释义")
+@Table(name = "tb_word_explanation", indexes = {@Index(columnList = "keyword")})
+@org.hibernate.annotations.Table(appliesTo = "tb_word_explanation", comment = "单词释义")
 public class WordExplanationEntity extends AbstractEntity {
 
     @Column(columnDefinition = "varchar(100) default '' comment '单词内容'")
@@ -25,4 +25,7 @@ public class WordExplanationEntity extends AbstractEntity {
 
     @Column(columnDefinition = "varchar(100) default '' comment '释义'")
     private String explanation;
+
+    @Column(columnDefinition = "varchar(100) default '' comment '音标'")
+    private String phonetic;
 }

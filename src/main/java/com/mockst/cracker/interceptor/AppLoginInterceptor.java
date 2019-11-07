@@ -35,11 +35,11 @@ public class AppLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getParameter("token");
-        if(handler instanceof HandlerMethod){
+        if (handler instanceof HandlerMethod) {
             HandlerMethod method = (HandlerMethod) handler;
             Annotation annotation = method.getMethodAnnotation(LoginIgnore.class);
             //有注解
-            if(annotation!=null){
+            if (annotation != null) {
                 return true;
             }
         }
@@ -48,17 +48,17 @@ public class AppLoginInterceptor implements HandlerInterceptor {
 //        }
         if (StringUtils.isBlank(token)) {
             LOGGER.warn("缺少参数token");
-            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.MISSING_REQUIRED_PARAMETER,"缺少token"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.MISSING_REQUIRED_PARAMETER, "缺少token"));
             return false;
         }
         String key = RedisKeyConstants.getRedisKey(RedisKeyConstants.USER_SESSION_KEY, token);
         String userId = (String) redisUtil.get(key);
         if (null == userId) {
             LOGGER.warn("登录信息过期");
-            RequestUtil.returnJson(response,APIResultUtil.responseBusinessFailedResult(APIConstant.SESSION_FAILED,"登录信息过期"));
+            RequestUtil.returnJson(response, APIResultUtil.responseBusinessFailedResult(APIConstant.SESSION_FAILED, "登录信息过期"));
             return false;
         }
-        redisUtil.set(key,userId,7200);
+        redisUtil.set(key, userId, 7200);
         return true;
     }
 

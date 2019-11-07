@@ -25,7 +25,7 @@ import java.util.UUID;
  * @Description:
  */
 @RestController
-@RequestMapping(WebConfigurer.APP_BASE_PATH+"/customer")
+@RequestMapping(WebConfigurer.APP_BASE_PATH + "/customer")
 public class CustomerController extends AbstractController {
 
     @Autowired
@@ -35,78 +35,81 @@ public class CustomerController extends AbstractController {
 
     /**
      * 注册用户
+     *
      * @return
      */
     @RequestMapping("register")
     public APIResult register(@Phone String phone,
-                               @RequestParam String password,
-                               @RequestParam String smsCode){
+                              @RequestParam String password,
+                              @RequestParam String smsCode) {
         CustomerEntity customerEntity = customerService.findByPhone(phone);
-        if (customerEntity!=null){
+        if (customerEntity != null) {
             return APIResultUtil.responseBusinessFailedResult("该手机号已被使用");
         }
-        VerificationCodeEntity verificationCodeEntity = verificationCodeService.checkSmsCode(phone, VerificationCodeEntity.CodeType.register.name(),smsCode);
-        if(verificationCodeEntity==null){
+        VerificationCodeEntity verificationCodeEntity = verificationCodeService.checkSmsCode(phone, VerificationCodeEntity.CodeType.register.name(), smsCode);
+        if (verificationCodeEntity == null) {
             return APIResultUtil.responseBusinessFailedResult("验证码无效");
         }
         verificationCodeEntity.setCodeStatus(VerificationCodeEntity.CodeStatus.expire);
         verificationCodeService.save(verificationCodeEntity);
-        customerEntity = customerService.register(phone,password);
-        String token = UUID.randomUUID().toString().replace("-","");
-        setCurrentUser(token,customerEntity);
+        customerEntity = customerService.register(phone, password);
+        String token = UUID.randomUUID().toString().replace("-", "");
+        setCurrentUser(token, customerEntity);
         //返回登录信息
         JSONObject data = new JSONObject();
-        data.put("token",token);
-        data.put("customerId",customerEntity.getId());
-        data.put("phone",phone);
+        data.put("token", token);
+        data.put("customerId", customerEntity.getId());
+        data.put("phone", phone);
         return APIResultUtil.returnSuccessResult(data);
     }
 
     /**
      * 登录
+     *
      * @param phone
      * @param password
      * @return
      */
     @RequestMapping("login")
     public APIResult login(@RequestParam String phone,
-                            @RequestParam String password){
-        CustomerEntity customerEntity = customerService.findByPhoneAndPassword(phone,password);
-        if (customerEntity==null){
+                           @RequestParam String password) {
+        CustomerEntity customerEntity = customerService.findByPhoneAndPassword(phone, password);
+        if (customerEntity == null) {
             return APIResultUtil.responseBusinessFailedResult("账号或者密码错误");
         }
-        if (CustomerEntity.CustomerStatus.freeze.equals(customerEntity.getCustomerStatus())){
+        if (CustomerEntity.CustomerStatus.freeze.equals(customerEntity.getCustomerStatus())) {
             return APIResultUtil.responseBusinessFailedResult("账号已冻结");
         }
-        String token = UUID.randomUUID().toString().replace("-","");
-        setCurrentUser(token,customerEntity);
+        String token = UUID.randomUUID().toString().replace("-", "");
+        setCurrentUser(token, customerEntity);
         //返回登录信息
         JSONObject data = new JSONObject();
-        data.put("token",token);
-        data.put("customerId",customerEntity.getId());
-        data.put("phone",phone);
+        data.put("token", token);
+        data.put("customerId", customerEntity.getId());
+        data.put("phone", phone);
         return APIResultUtil.returnSuccessResult(data);
     }
 
     /**
      * 重置密码
+     *
      * @param newPassword
      * @param
      * @return
      */
     @RequestMapping("resetPassword")
     public APIResult resetPassword(@RequestParam String phone,
-                                    @RequestParam String newPassword,
-                                   @RequestParam String smsCode){
+                                   @RequestParam String newPassword,
+                                   @RequestParam String smsCode) {
         CustomerEntity customerEntity = customerService.findByPhone(phone);
-        if (customerEntity==null){
+        if (customerEntity == null) {
             return APIResultUtil.responseBusinessFailedResult("账号或者密码错误");
         }
-        if (CustomerEntity.CustomerStatus.freeze.equals(customerEntity.getCustomerStatus())){
+        if (CustomerEntity.CustomerStatus.freeze.equals(customerEntity.getCustomerStatus())) {
             return APIResultUtil.responseBusinessFailedResult("账号已冻结");
         }
-        VerificationCodeEntity verificationCodeEntity = verificationCodeService.checkSmsCode(phone, VerificationCodeEntity.CodeType.resetPWD.name(),smsCode);
-        if(verificationCodeEntity==null){
+        VerificationCodeEntity verificationCodeEntity = verificationCodeService.checkSmsCode(phone, VerificationCodeEntity.CodeType.resetPWD.name(), smsCode);
+        if (verificationCodeEntity == null) {
             return APIResultUtil.responseBusinessFailedResult("验证码无效");
         }
         verificationCodeEntity.setCodeStatus(VerificationCodeEntity.CodeStatus.expire);
@@ -114,13 +117,13 @@ public class CustomerController extends AbstractController {
         String md5Password = DigestUtils.md5Hex(DigestUtils.md5Hex(newPassword));
         customerEntity.setPassword(md5Password);
         customerService.save(customerEntity);
-        String token = UUID.randomUUID().toString().replace("-","");
-        setCurrentUser(token,customerEntity);
+        String token = UUID.randomUUID().toString().replace("-", "");
+        setCurrentUser(token, customerEntity);
         //返回登录信息
         JSONObject data = new JSONObject();
-        data.put("token",token);
-        data.put("customerId",customerEntity.getId());
-        data.put("phone",phone);
+        data.put("token", token);
+        data.put("customerId", customerEntity.getId());
+        data.put("phone", phone);
         return APIResultUtil.returnSuccessResult(data);
     }
 

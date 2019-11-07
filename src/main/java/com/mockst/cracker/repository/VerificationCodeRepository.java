@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @Description:
  */
 @Repository
-public interface VerificationCodeRepository extends AbstractRepository<VerificationCodeEntity>{
+public interface VerificationCodeRepository extends AbstractRepository<VerificationCodeEntity> {
 }

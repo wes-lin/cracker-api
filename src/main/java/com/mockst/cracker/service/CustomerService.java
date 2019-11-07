@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @Description:
  */
 @Service
-public class CustomerService extends AbstractService<CustomerEntity>{
+public class CustomerService extends AbstractService<CustomerEntity> {
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -47,9 +47,9 @@ public class CustomerService extends AbstractService<CustomerEntity>{
         //创建词本
         //"insert tb_word_book(id,bookName,customerId,sceneId,lockStatus,bookType)";
         CustomerEntity DB = save(customerEntity);
-        List<WordSceneEntity> scenes = wordSceneRepository.findAll(new Sort(Sort.Direction.ASC,"sort"));
+        List<WordSceneEntity> scenes = wordSceneRepository.findAll(new Sort(Sort.Direction.ASC, "sort"));
         List<WordBookEntity> works = new ArrayList<>();
-        scenes.forEach(s->{
+        scenes.forEach(s -> {
             for (int i = 0; i < BookTypeEnum.values().length; i++) {
                 BookTypeEnum bookType = BookTypeEnum.values()[i];
                 WordBookEntity wordBookEntity = new WordBookEntity();
@@ -68,22 +68,22 @@ public class CustomerService extends AbstractService<CustomerEntity>{
 
     public CustomerEntity findByPhoneAndPassword(String phone, String password) {
         String md5password = DigestUtils.md5Hex(DigestUtils.md5Hex(password));
-        return customerRepository.findByPhoneAndPassword(phone,md5password);
+        return customerRepository.findByPhoneAndPassword(phone, md5password);
     }
 
-    public List<WordBook> findCustomerBooks(String customerId,BookTypeEnum bookType){
-        List<WordBookEntity> books = wordBookRepository.findByBookTypeAndCustomerId(bookType,customerId);
-        List<WordBook> bookList = books.stream().map(b->{
+    public List<WordBook> findCustomerBooks(String customerId, BookTypeEnum bookType) {
+        List<WordBookEntity> books = wordBookRepository.findByBookTypeAndCustomerId(bookType, customerId);
+        List<WordBook> bookList = books.stream().map(b -> {
             WordBook wordBook = new WordBook();
             wordBook.setBookId(b.getId());
             wordBook.setBookName(b.getBookName());
             wordBook.setLockStatus(b.getLockStatus().name());
             //解锁状态查询所有
-            if (b.getLockStatus()==WordBookEntity.LockStatus.unlocked){
-                wordBook.setTotal(wordRepository.countByBookTypeAndSceneId(bookType,b.getSceneId()));
+            if (b.getLockStatus() == WordBookEntity.LockStatus.unlocked) {
+                wordBook.setTotal(wordRepository.countByBookTypeAndSceneId(bookType, b.getSceneId()));
                 List<CustomerWordEntity> customerWords = customerWordRepository.findByBookId(b.getId());
                 wordBook.setStudyQuantity(customerWords.size());
-                wordBook.setFullLevelQuantity(customerWords.stream().filter(c->c.getLevel()==6).count());
+                wordBook.setFullLevelQuantity(customerWords.stream().filter(c -> c.getLevel() == 6).count());
             }
             return wordBook;
         }).collect(Collectors.toList());

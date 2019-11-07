@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Validated
 @RestController
-@RequestMapping(WebConfigurer.APP_BASE_PATH+"/common")
+@RequestMapping(WebConfigurer.APP_BASE_PATH + "/common")
 public class CommonController extends AbstractController {
 
     @Autowired
@@ -30,8 +30,8 @@ public class CommonController extends AbstractController {
      * 发送验证码
      */
     @RequestMapping("sendSmsCode")
-    public APIResult sendSmsCode(@Phone String phone , @RequestParam String codeType){
-        if (verificationCodeService.isSend(phone,codeType)){
+    public APIResult sendSmsCode(@Phone String phone, @RequestParam String codeType) {
+        if (verificationCodeService.isSend(phone, codeType)) {
             return APIResultUtil.responseBusinessFailedResult("10分钟内已发送短信");
         }
         VerificationCodeEntity verificationCode = new VerificationCodeEntity();
@@ -45,14 +45,15 @@ public class CommonController extends AbstractController {
 
     /**
      * 校验验证码
+     *
      * @param phone
      * @param codeType
      * @return
      */
     @RequestMapping("checkSmsCode")
-    public APIResult checkSmsCode(@Phone String phone , @RequestParam String codeType,@RequestParam String smsCode){
-        VerificationCodeEntity verificationCodeEntity = verificationCodeService.checkSmsCode(phone,codeType,smsCode);
-        if (verificationCodeEntity==null){
+    public APIResult checkSmsCode(@Phone String phone, @RequestParam String codeType, @RequestParam String smsCode) {
+        VerificationCodeEntity verificationCodeEntity = verificationCodeService.checkSmsCode(phone, codeType, smsCode);
+        if (verificationCodeEntity == null) {
             return APIResultUtil.responseBusinessFailedResult("验证码无效");
         }
         return APIResultUtil.returnSuccessResult(null);

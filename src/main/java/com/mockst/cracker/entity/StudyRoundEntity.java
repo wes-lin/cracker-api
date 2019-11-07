@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "tb_study_round")
-@org.hibernate.annotations.Table(appliesTo = "tb_study_round",comment = "学习轮次")
+@org.hibernate.annotations.Table(appliesTo = "tb_study_round", comment = "学习轮次")
 public class StudyRoundEntity extends AbstractEntity {
 
     @Column(columnDefinition = "varchar(32) default '' comment '所属词本'")

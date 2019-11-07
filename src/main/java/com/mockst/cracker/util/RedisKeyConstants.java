@@ -9,7 +9,7 @@ public class RedisKeyConstants {
 
     public static final String USER_SESSION_KEY = "token:%s";
 
-    public static String getRedisKey(String key,String value){
-        return String.format(key,value);
+    public static String getRedisKey(String key, String value) {
+        return String.format(key, value);
     }
 }

@@ -59,7 +59,7 @@ public class ThreadContextMDCInterceptor implements HandlerInterceptor {
         if (accessStartTimeStr != null && !"".equalsIgnoreCase(accessStartTimeStr)) {
             long accessStartTime = Long.valueOf(accessStartTimeStr);
             //执行uri多少毫秒
-            LOGGER.info("run traceId:{} uri:{}, {} msec finished",traceId, uri, (accessEndTime - accessStartTime));
+            LOGGER.info("run traceId:{} uri:{}, {} msec finished", traceId, uri, (accessEndTime - accessStartTime));
         }
         //清除
         MDC.clear();
