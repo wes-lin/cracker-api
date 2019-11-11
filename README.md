@@ -212,6 +212,7 @@
 |   USVoice   |          |       | 美式发音地址 |
 |    level    |          |       |     等级     |
 | explanation |          | Array |   释义数组   |
+|  phonetic   |          | Array |   发音数组   |
 |  resultId   |          |       |    结果id    |
 
 ### 提交单词
